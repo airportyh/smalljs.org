@@ -1,0 +1,19 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Small.JS</title>
+  <link href="http://smalljs.org/feed.xml" rel="self"/>
+  <link href="http://smalljs.org"/>
+  <updated>{{date}}</updated>
+  <id>http://smalljs.org</id>
+  {{#each posts}}
+  <entry>
+    <title>{{title}}</title>
+    <author>{{author}}</author>
+    <link href="http://smalljs.org{{path}}"/>
+    <updated>{{date}}</updated>
+    <id>http://smalljs.org{{path}}</id>
+    <content>
+      {{__content}}
+    </content>
+  </entry>
+  {{/each}}
+</feed>

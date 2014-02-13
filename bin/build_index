@@ -1,0 +1,28 @@
+#! /usr/bin/env node
+
+var fs = require('fs')
+var assert = require('assert')
+var handlebars = require('handlebars')
+var yfm = require('yaml-front-matter')
+var moment = require('moment')
+var input = 'index.html'
+var output = 'build/index.html'
+var getPostsMetaData = require('./get_posts_metadata')
+
+assert(fs.existsSync(input))
+
+var meta = yfm.loadFront(fs.readFileSync(input) + '')
+
+getPostsMetaData('contents', function(err, postMetas){
+  if (err) return console.error(err.message)
+
+  postMetas.forEach(function(post){
+    post.date = moment(post.date).format('l')
+  })
+
+  meta.latestPosts = postMetas
+  fs.writeFile(output, handlebars.compile(meta.__content)(meta), function(err){
+    if (err) return console.error(err.message)
+    console.log('Generated', output)
+  })
+})

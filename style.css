@@ -1,0 +1,90 @@
+body, body *{
+  font-family: Helvetica;
+}
+
+body{
+  padding: 10px 50px 50px 50px;
+  margin: auto;
+  max-width: 600px;
+}
+
+#header h1 a{
+  display: block;
+  background-image: url(smalljs.png);
+  background-repeat: no-repeat;
+  height: 200px;
+  width: 200px;
+  text-indent: -9999px;
+}
+
+#header h2{
+  font-weight: normal;
+  width: 200px;
+  margin-top: -17px;
+  font-size: 0.8em;
+}
+
+#header{
+  margin-bottom: 5em;
+}
+
+span.date{
+  font-style: italic;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+#content{
+  margin-top: 2em;
+  line-height: 1.6em;
+}
+
+#article{
+  margin-bottom: 3em;
+}
+
+@media screen and (max-width: 640px) {
+  body{
+    padding: 1em;
+  }
+}
+
+pre{
+  background: black;
+  color: white;
+  padding: 0 1em;
+}
+
+code{
+  font-family: monospace;
+}
+
+.summary{
+  float: right;
+  border: 1px solid #ccc;
+  padding: 0 1em;
+  margin: 1em;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  color: #666;
+}
+
+.summary dt{
+  display: inline;
+}
+
+.summary dt:not(:first-child):before{
+  white-space:pre;
+  content: '\A';
+}
+
+.summary dd{
+  margin-left: 0;
+  display: inline;
+}

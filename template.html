@@ -1,0 +1,64 @@
+<!doctype html>
+<head>
+  <title>{{title}}</title>
+  <link href="/style.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <div id="header">
+    <h1><a href="/">Small.js</a></h1>
+  </div>
+  <div id="content">
+  <div id="article">
+    <h1>{{title}}</h1>
+    {{#if summary}}
+    {{#with summary}}
+      <div class="summary">
+        <h3>Module Summary</h3>
+        <dl>
+          <dt title="lines of code with comments and empty lines stripped">LOC:</dt>
+          <dd title="lines of code with comments and empty lines stripped">{{file_size.loc}}</dd>
+          <dt>File size minified:</dt>
+          <dd>
+            <span title="without dependencies">{{file_size.minified.self}}</span>/<span title="with dependencies">{{file_size.minified.standalone}}</span>
+          </dd>
+          <dt>Dependencies:</dt>
+          {{#each dependencies}}
+            <dd><a href="{{this}}">{{@key}}</a></dd>
+          {{/each}}
+          <dt>Browser Support:</dt>
+          <dd>{{supported_browsers}}</dd>
+          <dt>Github:</dt>
+          <dd><a href="http://github.com/{{github}}">{{github}}</a></dd>
+          {{#each where}}
+            <dt>{{@key}}:</dt>
+            <dd>{{this}}</dd>
+          {{/each}}
+          
+        </dl>
+      </div>
+    {{/with}}
+    {{/if}}
+    <span>by {{author}} on {{date}}</span>
+    
+    {{body}}
+
+  </div>
+  <div id="disqus_thread"></div>
+   <script type="text/javascript">
+       var disqus_shortname = 'smalljsblog';
+
+       /* * * DON'T EDIT BELOW THIS LINE * * */
+       (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+       })();
+   </script>
+   <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+   <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+
+</body>
+</html>

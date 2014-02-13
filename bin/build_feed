@@ -1,0 +1,23 @@
+#! /usr/bin/env node
+
+var fs = require('fs')
+var getPostsMetaData = require('./get_posts_metadata')
+var handlebars = require('handlebars')
+var marked = require('marked')
+var feedTemplate = handlebars.compile(
+  fs.readFileSync('feed.xml') + '')
+
+getPostsMetaData('contents', function(err, posts){
+  if (err) return console.error(err.message)
+
+  posts.forEach(function(post){
+    post.__content = marked(post.__content),
+    post.date = post.date.toISOString()
+  })
+  var feedPath = 'build/feed.xml'
+  fs.writeFileSync(feedPath, feedTemplate({
+    date: new Date().toISOString(),
+    posts: posts
+  }))
+  console.log('Generated', feedPath)
+})
