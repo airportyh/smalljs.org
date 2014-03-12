@@ -73,6 +73,7 @@ code{
   font-size: 0.8em;
   line-height: 1.5em;
   color: #666;
+  max-width: 280px;
 }
 
 .summary dt{

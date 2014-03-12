@@ -115,6 +115,8 @@ There are other flavors of inheriting EventEmitter. I will list them here in cas
         Job.prototype.__proto__ = EventEmitter.prototype
 3. Mixin instead of inherit, i.e. copy over the methods, with an extend function like [xtend](https://github.com/Raynos/xtend) or [_.extend](http://underscorejs.org/#extend) or just write your own:
         extend(Job.prototype, EventEmitter.prototype)
+4. Built-in mixin capability as implemented by [component/inherit](https://github.com/component/inherit)
+        EventEmitter(Job.prototype)
 
 Regardless of which of the above you use, you can create a job with the `new` operator
 
