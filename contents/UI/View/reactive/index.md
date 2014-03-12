@@ -1,6 +1,6 @@
 ---
 title: Reactive
-date: UNPUBLISHED
+date: 2014-03-11
 summary:
   github: component/reactive
   where:
