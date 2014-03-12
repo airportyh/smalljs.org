@@ -29,19 +29,7 @@ Knockout and AngularJS have popularized the concept of declarative data binding 
 
 ## Basic Example
 
-Suppose you have an object `Person`, and it is an [event emitter](/object/events/event-emitter).
-
-``` js
-var EventEmitter = require('emitter');
-function Person(name, age){
-  this.name = name;
-  this.age = age;
-}
-Person.prototype = new EventEmitter;
-var bob = new Person('Bob', 35);
-```
-
-You have the following view, which displays information about a person:
+Supposed you have the following "view" in your HTML page, which displays information about a person. It uses string interpolation to substitute in the `name` and `age` properties of said person:
 
 ``` html
 <div id="person-view">
@@ -52,36 +40,63 @@ You have the following view, which displays information about a person:
 </div>
 ```
 
-To wire up the view to the model, do this:
+You have a person object:
+
+``` js
+var bob = {
+  name: 'Bob',
+  age: 38
+};
+```
+
+To wire up the view to the object:
 
 ``` js
 var elm = document.getElementById('person-view');
 reactive(elm, bob);
 ```
 
-Alternatively, the first argument can be a string containing the markup.
+Bam! Now the view is populated with the values from the object.
+
+Alternatively, the first argument can also be a string containing the template markup.
 
 ``` js
 reactive('<div id="person-view">...</div>', bob);
 ```
 
-Once the wiring is done, whenever the model notifies the view of property changes, the view will update. By default, reactive expects the property change events to be of the form `change <property name>`. So, for example, if I change Bob's age
+But, since `bob` is a plain object, there is no way to tell the view that its value has updated. What we need is something that fires events - we can use an [event emitter](/object/events/event-emitter/) for this.
+
+## Event Emitter
+
+An `Person` object that emits events can be written as:
 
 ``` js
-bob.age = 36;
+function Person(name, age){
+  this.name = name;
+  this.age = age;
+}
+Person.prototype = new EventEmitter; // or substitute your preferred
+                                     // method of inheritance here.
 ```
 
-I would need to trigger the change event to notify the view
+`bob` can be instantiated as
 
 ``` js
+var bob = new Person('Bob', 38);
+```
+
+And now, it can emit events to tell the view when its properties has changed:
+
+``` js
+bob.age = 39;
 bob.emit('change age');
 ```
 
-which causes the view to re-render its age display.
+At this point the age value in the view's display will update. Note that the name of the event reactive looks for by default is `change <name of property>`.
 
-## Models
+## Backbone Model
 
-Now I know what you are saying: *why trigger the event manually? Backbone models will do that for you!* Valid point. Reactive is actually pluggable and can be made to work with a variety of model implementations, including Backbone models. To do this, we need an adapter for backbone models. A model adapter is a constructor that takes a model object and implements the following methods:
+If you use Backbone, I know what you are saying: *why trigger the event manually? Backbone models will do that for you!* Valid point. Reactive can do that! Reactive is pluggable and can be made to work with a variety of model implementations, including Backbone models. To do this, we need an adapter for backbone models. A model adapter is a constructor that takes a model object and implements the following methods:
 
 * subscribe
 * unsubscribe
@@ -122,6 +137,8 @@ BackboneAdapter.prototype = {
   }
 }
 ```
+
+*Note: I've put the Backbone adapter on github as a [separate project](https://github.com/airportyh/reactive-backbone).*
 
 Now, to test it out, first make a backbone model instance:
 
@@ -165,23 +182,46 @@ The properties used in these expressions will be bound automatically so that if 
 
 ## Declarative Bindings
 
-In addition to string interpolation, Reactive also provides declarative bindings - which are written as attributes of DOM elements. I'll walk through the important ones.
+In addition to string interpolation, Reactive also provides declarative bindings - which are written as attributes of DOM elements. I'll walk through the most useful ones.
 
-### `data-text` Binding
+### Event Bindings
 
-Binds a model property to the text content of the element.
-
-``` html
-<p>First name: <span data-text="first"></span></p>
-```
-
-### `data-html` Binding
-
-`data-html` binds a model property to the inner HTML of the element.
+You can use an event binding to delegate event handling to your code. To specify a handler for a `click` event on an element, you'd use the `on-click` binding:
 
 ``` html
-<article id="content" data-html="content"></article>
+<button on-click="save">Save</button>
 ```
+
+The value specified - in this case: `save` - maps to a method in the delegate object, which you'll need to specify as an option to reactive. For example:
+
+``` js
+var delegate = {
+  save: function(e, view){
+    var model = view.model;
+    request.post('/api/person/', model.serialize());
+  }
+}
+
+reactive(elm, bob, {
+  delegate: delegate
+});
+```
+
+All the common DOM events are supported, via `on-<event name>`.
+
+### `each` Binding
+
+`each` gives you the ability to iterate an array of objects. It binds a model property - the value of which should be an array - and renders the original contents of the element once for each item in the array. Example:
+
+``` js
+<ul each="children">
+  <li>{last}, {first}</li>
+</ul>
+```
+
+*Note: in order to be notified of changes in the array, the `each` binding [duck punches](http://www.paulirish.com/2010/duck-punching-with-jquery/) the instance of array that's in use.*
+
+If you use Backbone, you might be wondering whether this can iterate a `Backbone.Collection`. Currently the answer is no.
 
 ### `data-<attr>` Binding
 
@@ -210,44 +250,15 @@ Binds a model property to the text content of the element.
 <input type="checkbox" data-checked="agreed_to_terms">
 ```
 
-### `each` Binding
+### `data-append` Binding
 
-`each` gives you the ability to iterate an array of objects. It binds a model property - the value of which should be an array - and renders the original contents of the element once for each item in the array. Example:
-
-``` js
-<ul each="children">
-  <li>{last}, {first}</li>
-</ul>
-```
-
-*Note: in order to be notified of changes in the array, the `each` binding [duck punches](http://www.paulirish.com/2010/duck-punching-with-jquery/) the instance of array that's in use.*
-
-If you use Backbone, you might be wondering whether this can iterate a `Backbone.Collection`. Currently the answer is no.
-
-### Event Bindings
-
-You can use an event binding to delegate event handling to your code. To specify a handler for a `click` event on an element, you'd use the `on-click` binding:
+`data-append` appends a new DOM element.
 
 ``` html
-<button on-click="save">Save</button>
+<div data-append="histogram"></div>
 ```
 
-The value specified - in this case: `save` - maps to a method in the delegate object, which you'll need to specify as an option to reactive. For example:
-
-``` js
-var delegate = {
-  save: function(e, view){
-    var model = view.model;
-    request.post('/api/person/', model.serialize());
-  }
-}
-
-reactive(elm, bob, {
-  delegate: delegate
-});
-```
-
-All the common DOM events are supported.
+The `histogram` property of the model is expected to contain a DOM element containing the desired widget.
 
 ### More On Bindings
 
