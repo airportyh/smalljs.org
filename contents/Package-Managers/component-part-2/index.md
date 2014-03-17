@@ -2,7 +2,7 @@
 title: "Component Part 2: Making Your Own"
 date: 2014-02-10
 ---
-*This is our second [Component](https://github.com/component/component/) tutorial - a follow up to the [first](/package-managers/component-part-1).* This article will walk through how to a component. There is a [screencast](#screencast) for this post as well for those who prefer watching over reading.
+This is our second [Component](https://github.com/component/component/) tutorial - a follow up to the [first](/package-managers/component-part-1). This article will walk through how to make a component. There is a [screencast](#screencast) for this post as well for those who prefer watching over reading.
 
 ## Why Make A Component?
 

@@ -11,7 +11,7 @@ var moment = require('moment')
 var input = process.argv[2]
 var output = process.argv[3]
 assert(fs.existsSync(input))
-var templatePath = 'template.html'
+var templatePath = 'templates/post.html'
 assert(fs.existsSync(templatePath))
 var template = handlebars.compile(
   fs.readFileSync(templatePath) + '', 

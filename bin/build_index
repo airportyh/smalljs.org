@@ -5,7 +5,7 @@ var assert = require('assert')
 var handlebars = require('handlebars')
 var yfm = require('yaml-front-matter')
 var moment = require('moment')
-var input = 'index.html'
+var input = 'templates/index.html'
 var output = 'build/index.html'
 var getPostsMetaData = require('./get_posts_metadata')
 

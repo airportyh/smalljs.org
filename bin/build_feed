@@ -5,7 +5,7 @@ var getPostsMetaData = require('./get_posts_metadata')
 var handlebars = require('handlebars')
 var marked = require('marked')
 var feedTemplate = handlebars.compile(
-  fs.readFileSync('feed.xml') + '')
+  fs.readFileSync('templates/feed.xml') + '')
 
 getPostsMetaData('contents', function(err, posts){
   if (err) return console.error(err.message)
