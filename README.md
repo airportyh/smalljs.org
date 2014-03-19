@@ -48,9 +48,10 @@ This should create a `smalljs.org` directory. Change into it
 cd smalljs.org
 ```
 
-Run the make
+Run
 
 ```
+npm install
 make
 ```
 
