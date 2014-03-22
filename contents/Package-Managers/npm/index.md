@@ -213,7 +213,7 @@ At the end it displays the resulting `package.json`, and you can go ahead with c
 }
 ```
 
-Note that npm automatically added `superagent` and `cheerio` as my module's dependencies because it found them in `node_modules`. *Gee, that's swell, thanks npm!* If you install a module after this point, and would like to add it as a dependency, simply use the `--save` option, as in `npm install <a module> --save`.
+Note that npm automatically added `superagent` and `cheerio` as my module's dependencies because it found them in `node_modules`. *Gee, that's swell, thanks npm!* If you install a module after this point, and would like to add it as a dependency, simply use the `--save` option, as in `npm install <a module> --save`. If you deleted your `node_modules` directory for some reason, you can get all your dependencies back with the command `npm install`.
 
 ### Writing The Module
 
