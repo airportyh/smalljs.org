@@ -141,8 +141,6 @@ Although array's interface mimics the native array for the most part, there are 
 * `indexOf` - doesn't handle second parameter `fromIndex`.
 * iteration methods (`map`, `forEach`, `reduce`, etc) don't handle 3rd parameter array.
 * iteration methods don't set context for the callback when provided as last parameter.
-* `reduceRight` method non-existent.
-* `some` method non-existent.
 
 ## More
 
