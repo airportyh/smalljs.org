@@ -1,6 +1,22 @@
 ---
 title: array
 date: 2014-03-26
+summary:
+  github: matthewmueller/array
+  where:
+    npm: array
+    Component: matthewmueller/array
+    Bower: array
+  supported_browsers: IE9+
+  file_size:
+    loc: 419
+    minified: 
+      self: 6.4k
+      standalone: 10.9k
+  dependencies:
+    emitter: https://github.com/component/emitter
+    to-function: https://github.com/component/to-function
+    toArray: https://github.com/yields/isArray
 ---
 If you are like me, you had a background in another programming language before getting familiar with JavaScript. Also, if you are like me, the thought "WTF" might have come up once or twice as you were learning JavaScript's [array API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). Gradually though, you've familiarized yourself with the array, and it has become second nature to you. The array API is actually not that bad, especially after the [functional style methods](http://www.jimmycuadra.com/posts/ecmascript-5-array-methods) were introduced in Ecmascript 5. But still, it *could* be better - which is the aim of the module I am covering - simply called [array](https://github.com/matthewmueller/array). array provides events that allow observers to be notified of changes in the array and adds convinient shorthands for functional style methods.
 
@@ -138,9 +154,6 @@ Although array's interface mimics the native array for the most part, there are 
 
 * the `length` property doesn't auto-magically update when you set a index of the array beyond it's current size. This shouldn't be a problem because normally, the best practice is to avoid using this feature and use `push` or `splice` to add items.
 * doesn't skip holes properly - i.e. `[1, ,3]`.
-* `indexOf` - doesn't handle second parameter `fromIndex`.
-* iteration methods (`map`, `forEach`, `reduce`, etc) don't handle 3rd parameter array.
-* iteration methods don't set context for the callback when provided as last parameter.
 
 ## More
 
