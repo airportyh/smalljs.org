@@ -278,7 +278,7 @@ scrape(url, selector, function(err, data){
 });
 ```
 
-Run to verify.
+Run to verify. Note that this time require is given a relative path: `./index` - with Node/npm, this is how you require intra-project modules.
 
 ### Go Forth And Publish!
 
