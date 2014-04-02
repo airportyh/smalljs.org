@@ -22,19 +22,7 @@ build/index.html: templates/index.html bin/build_index $(SRC_MD_FILES)
 build/feed.xml: templates/feed.xml bin/build_feed $(SRC_MD_FILES)
 	node bin/build_feed
 
-build/%.png: contents/%.png
-	mkdir -p $(dir $@)
-	cp $< $@
-
-build/%.js: contents/%.js
-	mkdir -p $(dir $@)
-	cp $< $@
-
-build/%.css: contents/%.css
-	mkdir -p $(dir $@)
-	cp $< $@
-
-build/%.jpg: contents/%.jpg
+build/%: contents/%
 	mkdir -p $(dir $@)
 	cp $< $@
 
