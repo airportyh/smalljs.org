@@ -1,6 +1,6 @@
 SRC_MD_FILES = $(shell find contents -name "*.md")
 DST_HTML_FILES = $(shell echo $(subst contents/, build/, $(SRC_MD_FILES:%.md=%.html)) | tr A-Z a-z)
-SRC_ASSET_FILES := $(shell find contents -name '*.png' -name '*.js' -name '*.css' -name '*.jpg')
+SRC_ASSET_FILES := $(shell find contents -name '*.png' -o -name '*.js' -o -name '*.css' -o -name '*.jpg')
 DST_ASSET_FILES := $(shell echo $(subst contents/, build/, $(SRC_ASSET_FILES)) | tr A-Z a-z)
 COPY_EXT := png js css jpg
 
@@ -36,6 +36,6 @@ clean:
 	rm -fr build/*
 
 debug:
-	@echo $(SRC_MD_FILES)
+	@echo $(SRC_ASSET_FILES)
 	
 

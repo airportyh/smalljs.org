@@ -7,6 +7,15 @@ var yfm = require('yaml-front-matter')
 var path = require('path')
 var markdown = require('marked')
 var moment = require('moment')
+var colorize = require('pygments').colorize
+
+markdown.setOptions({
+  highlight: function(code, lang, callback){
+    colorize(code, lang, 'html', function(output){
+      if (callback) callback(null, output)
+    })
+  }
+})
 
 var input = process.argv[2]
 var output = process.argv[3]
@@ -21,5 +30,8 @@ var inputText = fs.readFileSync(input) + ''
 var meta = yfm.loadFront(inputText)
 meta.author = meta.author || 'Toby Ho'
 meta.date = moment(meta.date).format('l')
-meta.body = markdown(meta.__content)
-fs.writeFileSync(output, template(meta))
+markdown(meta.__content, function(err, body){
+  meta.body = body
+  fs.writeFileSync(output, template(meta))
+})
+
