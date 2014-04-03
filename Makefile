@@ -7,9 +7,9 @@ all: \
 	build/style.css \
 	build/smalljs.png \
 	build/index.html \
+	build/feed.xml \
 	$(DST_HTML_FILES) \
-	$(DST_ASSET_FILES) \
-	build/feed.xml
+	$(DST_ASSET_FILES)
 
 build/%/index.html: contents/%/index.md templates/post.html bin/build_post
 	mkdir -p $(addprefix build/, $*)
