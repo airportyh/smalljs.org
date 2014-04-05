@@ -4,7 +4,7 @@ date: 2014-04-02
 ---
 [Browserify](http://browserify.org/) is a build tool that lets you use Node's CommonJS module system for frontend JavaScript development. It integrates seamlessly with [npm](/package-managers/npm), and you can use the same smooth npm workflow for installing and publish modules. For this reason, we've seen the rise of frontend JavaScript modules being published to npm. Browserify also opens up the possibility of code reuse between the server and the client - if you have a Node backend.
 
-To learn more about using npm itself and using it to write server-side Node programs, check out the [npm article](package-managers/npm/).
+To learn more about using npm itself and using it to write server-side Node programs, check out the [npm article](/package-managers/npm/).
 
 ## The Gist
 

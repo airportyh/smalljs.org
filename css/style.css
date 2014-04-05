@@ -61,7 +61,8 @@ pre{
   padding: 0 1em;
 }
 
-code{
+code,
+.highlight *{
   font-family: Inconsolata, Monaco, Courier New;
 }
 
