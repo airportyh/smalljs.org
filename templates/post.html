@@ -27,6 +27,8 @@
           <dt>Dependencies:</dt>
           {{#each dependencies}}
             <dd><a href="{{this}}">{{@key}}</a></dd>
+          {{else}}
+            <dd>none</dd>
           {{/each}}
           <dt>Browser Support:</dt>
           <dd>{{supported_browsers}}</dd>
