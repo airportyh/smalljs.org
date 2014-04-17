@@ -1,6 +1,18 @@
 ---
 title: Page
 date: 2014-04-17
+summary:
+  github: visionmedia/page.js
+  where:
+    npm: page
+    Component: visionmedia/page.js
+    Bower: page
+  supported_browsers: IE8+
+  file_size:
+    loc: 195
+    minified: 
+      self: 3.4k
+  dependencies: none
 ---
 [Page](https://github.com/visionmedia/page.js) is a small client-side routing library for use with building single page applications (SPAs). It has a simple API which is inspired by [Express](http://expressjs.com/). It utilizes the [HTML5 history API](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history) under the hood, which is what allows you to build smooth user interfaces while still having linkable URLs for different pages of the app.
 
